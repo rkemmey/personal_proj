@@ -11,5 +11,9 @@ TO DO:
 - store generated puzzles in a PostgreSQL database instead of generating them randomly every time
 
 - puzzles are actual pictures
+_____________________________
+
+1.) api call to sudoku puzzle
+2.) read in icon api, convert image to array and save in db
 
 """
