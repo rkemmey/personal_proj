@@ -58,6 +58,9 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173' # Allow frontend to fetch from backend
 ]
 
+# to allow all origins for dev
+CORS_ALLOW_ALL_ORIGINS = True
+
 ROOT_URLCONF = 'puzzle_proj.urls'
 
 TEMPLATES = [
