@@ -1,1 +1,26 @@
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 40px);
+    gap: 0px;
+    max-width: fit-content;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.sudoku-cell {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+}
+
+.sudoku-cell.clue {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+.sudoku-cell.editable {
+    background-color: #ffffff;
+}
 
