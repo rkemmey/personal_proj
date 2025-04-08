@@ -11,9 +11,13 @@ TO DO:
 - store generated puzzles in a PostgreSQL database instead of generating them randomly every time
 
 - puzzles are actual pictures
+_________________________
+api call to sudoku puzzle, displayed, able to check solution
 _____________________________
 
-1.) api call to sudoku puzzle
-2.) read in icon api, convert image to array and save in db
+1.) read in icon api, convert image to array and save in db-- get nonogram working
+2.) navbar: nonograms, sudokus, profile
+3.) puzzle pages: be able to filter by difficulty
+4.) profile: able to see completed and saved puzzles
 
 """

@@ -6,9 +6,8 @@ import SudGrid from "./SudGrid";
 function SudGame() {
     const [puzzle, setPuzzle] = useState(null);
     const [solution, setSolution] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [grid, setGrid] = useState([]); // User's grid
-    const [message, setMessage] = useState(""); // Validation message
+    //const [loading, setLoading] = useState(true);
+    
 
     //if (loading) return <p>Loading puzzle...</p>;
 
@@ -21,8 +20,7 @@ function SudGame() {
             let puzzleArr = data.newboard.grids[0] // TODO: possibly store difficulty
             setPuzzle(puzzleArr['value']);
             setSolution(puzzleArr['solution']);
-            //setGrid(Array(data.size).fill().map(() => Array(data.size).fill(0))); // Initialize empty grid
-            setLoading(false);
+            //setLoading(false);
         }
         catch (error) {
             console.error("Error fetching puzzle:", error)
@@ -40,7 +38,7 @@ function SudGame() {
     }, [puzzle]);
 
     return (
-        puzzle !== null && <SudGrid puzzle={puzzle} />
+        puzzle !== null && <SudGrid puzzle={puzzle} solution={solution}/>
     )
 }
 

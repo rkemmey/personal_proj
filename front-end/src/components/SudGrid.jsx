@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "../App.css";
 
-const SudGrid = ({ puzzle }) => {
+const SudGrid = ({ puzzle, solution }) => {
     const [board, setBoard] = useState(puzzle);
+    const [message, setMessage] = useState(""); // Validation message
 
     const handleChange = (row, col, value) => {
         const updatedBoard = board.map((r, rowIndex) => // loop through each row -- map(element, index, array)
@@ -17,8 +18,16 @@ const SudGrid = ({ puzzle }) => {
         setBoard(updatedBoard);
     };
 
+    const checkSolution = () => {
+        const isCorrect = board.every((row, rowIndex) =>
+            row.every((cell, colIndex) => cell === solution[rowIndex][colIndex])
+        );
+        setMessage(isCorrect ? "Correct!" : "Incorrect. Try again.");
+    };
+
     return (
-        <div className="sudoku-grid">
+        <div className="sudoku-container">
+            <div className="sudoku-grid">
             {board.map((row, rowIndex) =>
                 row.map((cell, colIndex) => {
                     const isEditable = cell === 0;
@@ -38,6 +47,9 @@ const SudGrid = ({ puzzle }) => {
                     );
                 })
             )}
+            </div>
+        <button className="check-button" onClick={checkSolution}>Check Solution</button>
+            {message && <div className="message">{message}</div>}
         </div>
     );
 };
