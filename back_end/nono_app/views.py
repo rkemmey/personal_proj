@@ -11,7 +11,7 @@ import numpy as np
 from puzzle_proj.settings import env
 from .models import ImagePixels
 from rest_framework.generics import ListAPIView
-#from .serializers import ImagePixelsSerializer
+from .serializers import ImagePixelsSerializer
 
 class Noun_Project(APIView): # search for an icon to build a puzzle, save in psql db
     def get(self, request):
@@ -26,7 +26,7 @@ class Noun_Project(APIView): # search for an icon to build a puzzle, save in psq
             image_response = requests.get(image_url, timeout=10)
             image_response.raise_for_status()
             img = Image.open(BytesIO(image_response.content)).convert("RGB")
-            pixel_arr = np.array(img)
+            pixel_arr = np.array(img).tolist()
             obj, created = ImagePixels.objects.get_or_create(source_url=image_url, 
                                                              defaults={'pixels': pixel_arr})
             if not created:
@@ -38,9 +38,18 @@ class Noun_Project(APIView): # search for an icon to build a puzzle, save in psq
             return Response('Nothing')
         #return Response(responseJSON['icon']['thumbnail_url'])
 
-# class AllPixelsView(ListAPIView):
-#     queryset = ImagePixels.objects.all()
-#     serializer_class = ImagePixelsSerializer
+# http://127.0.0.1:8000/api/nonogram/allpixels/
+class AllPixelsView(ListAPIView):
+    queryset = ImagePixels.objects.all()
+    serializer_class = ImagePixelsSerializer
+
+# http://127.0.0.1:8000/api/nonogram/pixels/1/
+class OnePixelsView(APIView):
+    def get(self, request, id):
+        img = ImagePixels.objects.get(id=id)
+        ser = ImagePixelsSerializer(img)
+        return Response(ser.data)
+
 
 
 # def nonogram_api(request):

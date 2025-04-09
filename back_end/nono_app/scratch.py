@@ -13,9 +13,10 @@ TO DO:
 - puzzles are actual pictures
 _________________________
 api call to sudoku puzzle, displayed, able to check solution
+read in icon api, convert image url to array and save in db-- models, views, urls, serializers
 _____________________________
-
-1.) read in icon api, convert image url to array and save in db-- get nonogram working
+1.) create resources folder, get an image to pixels, build nonogram from that. send pixels to front end?
+2.) read in 100 pixels to have a database get nonogram working
 2.) navbar: nonograms, sudokus, profile - react router dom
 3.) puzzle pages: be able to filter by difficulty
 4.) profile: able to see completed and saved puzzles
