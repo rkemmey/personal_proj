@@ -1,8 +1,12 @@
 import random
+import numpy as np
 
-def generate_nonogram(size=5):
-    grid = [[random.choice([0, 1]) for _ in range(size)] for _ in range(size)]
-    #print(len(grid))
+def generate_nonogram(matrix):
+    if not matrix:
+        return "No grid"
+    size = matrix.shape
+    grid = grid.tolist()
+
 
     row_hints = []  # This will store the hint numbers for each row
     for row in grid:
