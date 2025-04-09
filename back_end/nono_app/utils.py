@@ -1,4 +1,8 @@
 import random
+import requests
+from PIL import Image
+from io import BytesIO
+import numpy as np
 
 def generate_nonogram(size=5):
     grid = [[random.choice([0, 1]) for _ in range(size)] for _ in range(size)]
@@ -47,3 +51,16 @@ def generate_nonogram(size=5):
         "column_hints": col_hints,
         "solution": grid  # Optional: You may remove this when serving the puzzle
     }
+
+def url_to_pixel(image_url):
+    image_url = ''
+    image_response = requests.get(image_url)
+    img = Image.open(BytesIO(image_response.content))
+
+    # Step 4: Convert to RGB and then to pixel array
+    img = img.convert("RGB")
+    pixels = np.array(img)
+
+    # Optional: print shape or inspect pixels
+    print(pixels.shape)
+    print(pixels[0, 0])  # RGB value of the top-left pixel
