@@ -12,8 +12,8 @@ class NonogramPuzzle(models.Model):
     image = models.OneToOneField(ImagePixels, on_delete=models.CASCADE, related_name='puzzle')
     rows = models.IntegerField()
     cols = models.IntegerField()
-    row_hints = ArrayField(ArrayField(models.IntegerField()))
-    column_hints = ArrayField(ArrayField(models.IntegerField()))
+    row_hints = models.JSONField(blank=True, null=True)
+    column_hints = models.JSONField(blank=True, null=True)
     solution = ArrayField(ArrayField(models.IntegerField()))
     created_at = models.DateTimeField(auto_now_add=True)
 

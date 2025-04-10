@@ -1,8 +1,5 @@
 from django.shortcuts import render
-# Create your views here.
-from django.http import JsonResponse
 from rest_framework.views import APIView, Response
-#from .utils import generate_nonogram
 import requests
 from requests_oauthlib import OAuth1
 from PIL import Image, UnidentifiedImageError
@@ -63,10 +60,5 @@ class OneNonogramView(ListAPIView):
         ser = NonogramPuzzleSerializer(puzzle)
         return Response(ser.data)
 
-
-# def nonogram_api(request):
-#     """API endpoint to fetch a random Nonogram puzzle."""
-#     puzzle = generate_nonogram(size=5)  # Generate a puzzle
-#     return JsonResponse(puzzle)
 
         

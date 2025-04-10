@@ -14,11 +14,13 @@ TO DO:
 _________________________
 api call to sudoku puzzle, displayed, able to check solution
 read in icon api, convert image url to array and save in db-- models, views, urls, serializers
-_____________________________
-1.) get an image to pixels, build nonogram from that. send pixels to front end
+get an image to pixels, build nonogram from that. 
     // convert pixels to nonogram (solution)
     // make blank grid with hints
     // store solution (new api endpoint)
+_____________________________
+1.) send pixels to front end puzzle/1 endpoint
+    // find a way that if solution is all 0s or all 1s, do not add to database
 2.) read in 100 pixels to have a database get nonogram working
 2.) navbar: nonograms, sudokus, profile - react router dom
 3.) puzzle pages: be able to filter by difficulty

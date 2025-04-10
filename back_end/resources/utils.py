@@ -3,7 +3,7 @@ import numpy as np
 from nono_app.models import NonogramPuzzle
 
 def binary_builder(img):
-    # image_path = url 
+    # image_path = 'octo.jpg'
     # img = Image.open(image_path).convert('L') # 'L' converts image to grayscale
     img_resized = img.resize((10,10))
     image_array = np.array(img_resized)
@@ -79,3 +79,9 @@ def store_view(img_obj, img):
     if not created:
         print("Puzzle already existed!")
 
+# x = binary_builder('octo.jpg')
+# p = generate_nonogram(x)
+# print(p)
+# print(p['row_hints'])
+# print(p['column_hints'])
+# print(p['solution'])
