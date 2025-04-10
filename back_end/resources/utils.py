@@ -1,11 +1,23 @@
-import random
+from PIL import Image
 import numpy as np
+from nono_app.models import NonogramPuzzle
+
+def binary_builder(img):
+    # image_path = url 
+    # img = Image.open(image_path).convert('L') # 'L' converts image to grayscale
+    img_resized = img.resize((10,10))
+    image_array = np.array(img_resized)
+
+    # apply a threshold to convert pixels to 0 or 1
+    threshold = 130 # black 0, white 222
+    binary = (image_array > threshold).astype(int) # boolean true=1, false=0 = solution array
+    return binary
 
 def generate_nonogram(matrix):
-    if not matrix:
-        return "No grid"
+    # if not matrix:
+    #     return "No grid"
     size = matrix.shape
-    grid = grid.tolist()
+    grid = matrix.tolist()
 
 
     row_hints = []  # This will store the hint numbers for each row
@@ -49,6 +61,21 @@ def generate_nonogram(matrix):
         "size": size,
         "row_hints": row_hints,
         "column_hints": col_hints,
-        "solution": grid  # Optional: You may remove this when serving the puzzle
+        "solution": grid  
     }
+
+def store_view(img_obj, img):
+    binary = binary_builder(img)
+    puzzle_data = generate_nonogram(binary)
+    obj, created = NonogramPuzzle.objects.get_or_create(
+        image=img_obj,
+        rows=puzzle_data['size'][0],
+        cols=puzzle_data['size'][1],
+        defaults={  # fields will only be used if the object doesn't exist
+        'row_hints': puzzle_data['row_hints'],
+        'column_hints': puzzle_data['column_hints'],
+        'solution': puzzle_data['solution']
+    })
+    if not created:
+        print("Puzzle already existed!")
 

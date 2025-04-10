@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import  Noun_Project, AllPixelsView, OnePixelsView
+from .views import  Noun_Project, AllPixelsView, OnePixelsView, AllNonogramsView, OneNonogramView
 
 urlpatterns = [
     #path("", nonogram_api, name="nonogram_api"),
-    path('', Noun_Project.as_view(), name='nonogram_api'),  # POST- store 1 images pixels
-    path('allpixels/', AllPixelsView.as_view(), name='all-pixels'), # GET - all pixels
-    path('pixels/<int:id>/', OnePixelsView.as_view(), name='a_pixel') # GET pixels for one image
+    path('noun/', Noun_Project.as_view(), name='nonogram_api'),  # POST- store 1 images pixels
+    path('allpixels/', AllPixelsView.as_view(), name='all_pixels'), # GET - all pixels
+    path('pixels/<int:id>/', OnePixelsView.as_view(), name='a_pixel'), # GET pixels for one image
+    path('allpuzzles/', AllNonogramsView.as_view(), name='all_puzzles'),  # GET - all puzzles
+    path('puzzle/<int:id>/', OneNonogramView.as_view(), name='a_puzzle'),  # GET a puzzle
+
 ]

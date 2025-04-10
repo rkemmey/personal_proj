@@ -9,9 +9,10 @@ from PIL import Image, UnidentifiedImageError
 from io import BytesIO
 import numpy as np
 from puzzle_proj.settings import env
-from .models import ImagePixels
+from .models import ImagePixels, NonogramPuzzle
 from rest_framework.generics import ListAPIView
-from .serializers import ImagePixelsSerializer
+from .serializers import ImagePixelsSerializer, NonogramPuzzleSerializer
+from resources.utils import store_view
 
 class Noun_Project(APIView): # search for an icon to build a puzzle, save in psql db
     def get(self, request):
@@ -25,12 +26,14 @@ class Noun_Project(APIView): # search for an icon to build a puzzle, save in psq
         try:
             image_response = requests.get(image_url, timeout=10)
             image_response.raise_for_status()
-            img = Image.open(BytesIO(image_response.content)).convert("RGB")
+            img = Image.open(BytesIO(image_response.content)).convert('L')
             pixel_arr = np.array(img).tolist()
-            obj, created = ImagePixels.objects.get_or_create(source_url=image_url, 
+            img_obj, created = ImagePixels.objects.get_or_create(source_url=image_url, 
                                                              defaults={'pixels': pixel_arr})
+            # send img to store view -> binary builder -> generate nonogram
+            store_view(img_obj, img)
             if not created:
-                print("Already existed!")
+                print("Pixels already existed!")
             #ImagePixels.objects.create(source_url=image_url, pixels=pixel_arr)
             return Response(pixel_arr)
         except (requests.RequestException, UnidentifiedImageError) as e:
@@ -50,6 +53,15 @@ class OnePixelsView(APIView):
         ser = ImagePixelsSerializer(img)
         return Response(ser.data)
 
+class AllNonogramsView(ListAPIView):
+    queryset = NonogramPuzzle.objects.all()
+    serializer_class = NonogramPuzzleSerializer
+
+class OneNonogramView(ListAPIView):
+    def get(self, request, id):
+        puzzle = NonogramPuzzle.objects.get(id=id)
+        ser = NonogramPuzzleSerializer(puzzle)
+        return Response(ser.data)
 
 
 # def nonogram_api(request):

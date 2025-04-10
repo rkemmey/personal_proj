@@ -5,6 +5,8 @@
 
 from PIL import Image
 import numpy as np
+from utils import generate_nonogram
+
 
 image_path = 'octo.jpg' 
 img = Image.open(image_path).convert('L') # 'L' converts image to grayscale
@@ -14,9 +16,11 @@ image_array = np.array(img_resized)
 # apply a threshold to convert pixels to 0 or 1
 threshold = 130 # black 0, white 222
 binary = (image_array > threshold).astype(int) # boolean true=1, false=0
-print(binary) # binary = solution array
-print(type(binary))
+#print(binary) # binary = solution array
+#print(type(binary))
 
+jsoncode = generate_nonogram(binary)
+print(jsoncode)
 # # Find the unique pixels in the image (each unique RGB value)
 # unique_pixels = np.unique(image_array.reshape(-1, image_array.shape[-1]), axis=0)
 # # Output the unique pixels and the count of unique pixels
