@@ -19,11 +19,13 @@ get an image to pixels, build nonogram from that.
     // make blank grid with hints
     // store solution (new api endpoint)
 _____________________________
-1.) send pixels to front end puzzle/1 endpoint
+1.) send pixels to front end puzzle/1 endpoint 
+    // verify solution box.
     // find a way that if solution is all 0s or all 1s, do not add to database
 2.) read in 100 pixels to have a database get nonogram working
 2.) navbar: nonograms, sudokus, profile - react router dom
 3.) puzzle pages: be able to filter by difficulty
 4.) profile: able to see completed and saved puzzles
 5.) db of sudoku puzzles-- models/views
+6.) debug: edit sudoku puzzle after clicked submit, swap 0 to 1 interpretation
 """

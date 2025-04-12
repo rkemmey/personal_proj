@@ -1,15 +1,17 @@
-import React from "react";
-import NonoGame from "./components/NonoGame";
-import SudGame from "./components/SudGame";
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import NavBar from "./components/NavBar";
+//import { Link } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      {/* <h1>Nonogram Puzzle</h1>
-      <NonoGame /> */}
-      <h1>Sudoku Puzzle</h1>
-      <SudGame />
-    </div>
+    <>
+      
+      <NavBar />
+      <Outlet />
+      
+    </>
   );
 }
 
