@@ -18,12 +18,13 @@ get an image to pixels, build nonogram from that.
     // convert pixels to nonogram (solution)
     // make blank grid with hints
     // store solution (new api endpoint)
+navbar: nonograms, sudokus, profile - react router dom
 _____________________________
 1.) send pixels to front end puzzle/1 endpoint 
     // verify solution box.
     // find a way that if solution is all 0s or all 1s, do not add to database
 2.) read in 100 pixels to have a database get nonogram working
-2.) navbar: nonograms, sudokus, profile - react router dom
+2.) sud / nono pages after building navbar
 3.) puzzle pages: be able to filter by difficulty
 4.) profile: able to see completed and saved puzzles
 5.) db of sudoku puzzles-- models/views
