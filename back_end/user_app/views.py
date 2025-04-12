@@ -10,7 +10,7 @@ from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CON
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from .models import Client
+from .models import User 
 
 class TokenReq(APIView):
     authentication_classes = [TokenAuthentication]
@@ -27,13 +27,13 @@ class Sign_Up(APIView):
         if not email or not password:
             return Response({"error": "Email and password required"}, status=HTTP_400_BAD_REQUEST)
 
-        if Client.objects.filter(email=email).exists():
+        if User.objects.filter(email=email).exists():
             return Response({"error": "User already exists"}, status=HTTP_400_BAD_REQUEST)
 
-        user = Client.objects.create_user(username=email, email=email, password=password)
+        user = User.objects.create_user(username=email, email=email, password=password)
         token = Token.objects.create(user=user)
 
-        return Response({"client": user.email, "token": token.key}, status=HTTP_201_CREATED)
+        return Response({"user": user.email, "token": token.key}, status=HTTP_201_CREATED)
 
 
 class Log_in(APIView):
@@ -49,7 +49,7 @@ class Log_in(APIView):
             return Response({"error": "Invalid credentials"}, status=HTTP_400_BAD_REQUEST)
 
         token, _ = Token.objects.get_or_create(user=user)
-        return Response({"client": user.email, "token": token.key}, status=HTTP_200_OK)
+        return Response({"user": user.email, "token": token.key}, status=HTTP_200_OK)
 
 class Log_out(APIView):
     authentication_classes = [TokenAuthentication]

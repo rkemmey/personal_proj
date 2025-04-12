@@ -4,7 +4,7 @@ from django.core import validators as v
 
 
 # Create your models here.
-class Client(AbstractUser):
+class User(AbstractUser):
     email = models.CharField(unique=True, blank=False)
     
     USERNAME_FIELD = 'email'
