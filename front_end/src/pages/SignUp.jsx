@@ -13,7 +13,7 @@ function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/signup/', form);
+      await axios.post('http://localhost:8000/api/user/signup/', form);
       setMessage('Account created! You can now sign in.');
     } catch (error) {
       setMessage('Sign up failed. Please try again.');

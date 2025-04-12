@@ -5,7 +5,7 @@ from django.core import validators as v
 
 # Create your models here.
 class User(AbstractUser):
-    email = models.CharField(unique=True, blank=False)
+    email = models.EmailField(unique=True, blank=False)
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
