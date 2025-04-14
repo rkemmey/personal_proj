@@ -8,6 +8,7 @@ import NonoPage from "./pages/NonoPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFound from "./pages/NotFound";
 import ErrorPage from "./pages/ErrorPage";
+import SudGame from "./components/SudGame";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
         { path: "/login/", element: <Login />},
         { path: "/signup/", element: <SignUp />},
         { path: "/sudoku/", element: <SudPage />},
+        { path: "/sudoku/:id", element: <SudGame /> },
         { path: "/nonogram/", element: <NonoPage />},
         { path: "/profile/", element: <ProfilePage />}, //make PrivateRoute?
         { path: "*", element: <NotFound /> },

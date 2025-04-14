@@ -91,3 +91,25 @@ export const getProfile = async () => {
   console.log('getProfile error', response)
   return null;
 }
+
+export const getSudokuPuzzles = async () => {
+  const response = await api.get('sudoku/allpuzzles/')
+  if (response.status === 200) {
+      console.log('getSudokuPuzzles success, ', response.data)
+      return response.data
+  }
+
+  console.log('getSudokuPuzzles error', response)
+  return null;
+}
+
+export const getASudokuPuzzle = async (id) => {
+  const response = await api.get(`sudoku/puzzle/${id}/`)
+  if (response.status === 200) {
+      console.log('getASudokuPuzzle success, ', response.data)
+      return response.data
+  }
+
+  console.log('getASudokuPuzzle error', response)
+  return null;
+}

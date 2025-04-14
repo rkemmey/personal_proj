@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../utilities";
 import SudGrid from "./SudGrid";
+import { useParams } from "react-router-dom";
 
 
 function SudGame() {
     const [puzzle, setPuzzle] = useState(null);
     const [solution, setSolution] = useState(null);
-    //const [loading, setLoading] = useState(true);
-    
-
-    //if (loading) return <p>Loading puzzle...</p>;
+    const { id } = useParams();
 
     const test_connection = async () => {
-        let response = await api.get("sudoku/");
+        let response = await api.get(`sudoku/puzzle/${id}/`);
         let data = response.data
         console.log(data);
 
         try {
-            let puzzleArr = data.newboard.grids[0] // TODO: possibly store difficulty
+            let puzzleArr = data.puzzle_data.newboard.grids[0] // TODO: possibly store difficulty
             setPuzzle(puzzleArr['value']);
             setSolution(puzzleArr['solution']);
             //setLoading(false);
@@ -29,7 +27,7 @@ function SudGame() {
       
       useEffect(() => {
         test_connection();
-      }, []);
+      }, [id]);
 
       useEffect(() => {
         if (puzzle !== null) {
