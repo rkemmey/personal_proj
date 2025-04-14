@@ -19,7 +19,7 @@ const router = createBrowserRouter([
         { path: "/signup/", element: <SignUp />},
         { path: "/sudoku/", element: <SudPage />},
         { path: "/nonogram/", element: <NonoPage />},
-        { path: "/profile/", element: <ProfilePage />},
+        { path: "/profile/", element: <ProfilePage />}, //make PrivateRoute?
         { path: "*", element: <NotFound /> },
       ],
       errorElement: <ErrorPage />,

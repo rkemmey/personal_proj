@@ -79,3 +79,15 @@ export const userConfirmation = async () => {
   console.log('userconfirmation user not logged in')
   return null;
 }
+
+export const getProfile = async () => {
+  // authorization is already set b/c user is logged in
+  const response = await api.get('user/info/')
+  if (response.status === 200) {
+      console.log('getProfile success, ', response.data)
+      return response.data
+  }
+
+  console.log('getProfile error', response)
+  return null;
+}

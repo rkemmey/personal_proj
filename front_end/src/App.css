@@ -81,4 +81,36 @@
     flex-direction: column;
     justify-content: flex-end;
   }
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+  }
   
+  .navbar-left h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .navbar-right button {
+    background: none;
+    border: 1px solid red;
+    color: red;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .navbar-right span {
+    font-size: 1rem;
+  }
