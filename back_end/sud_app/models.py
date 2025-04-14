@@ -1,4 +1,6 @@
 from django.db import models
 
-# Create your models here.
- # create table to make db of sudoku puzzles
+class SudokuPuzzle(models.Model):
+    puzzle_data = models.JSONField()  # stores the whole puzzle from the API
+    created_at = models.DateTimeField(auto_now_add=True)
+    used = models.BooleanField(default=False)
