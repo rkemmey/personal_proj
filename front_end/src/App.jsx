@@ -1,18 +1,35 @@
-import React, { useState } from "react";
-import { Outlet } from "react-router-dom";
-import "./App.css";
-import NavBar from "./components/NavBar";
-//import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import './App.css'
+import NavBar from './components/NavBar'
+import { Outlet, useLoaderData } from 'react-router-dom'
+import { api } from './utilities'
+
+// const testConnection = async() => {
+//   console.log('testconnection')
+//   const response = await api.get("lists/test/");
+//   console.log(response)
+// }
 
 function App() {
+  const loadedUser = useLoaderData();
+  const [user, setUser] = useState(loadedUser);
+  // const [ lists, setLists ] = useState([]);
+
+  // useEffect(() => {
+  //   testConnection();
+  // }, [])
+
+  useEffect(() => {
+    console.log('<App/> state user ', user)
+  }, [user])
+
+
   return (
     <>
-      
-      <NavBar />
-      <Outlet />
-      
+      <NavBar user={user} setUser={setUser} />
+      <Outlet context={{ user, setUser }}/>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

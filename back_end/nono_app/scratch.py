@@ -26,7 +26,7 @@ _____________________________
 2.) read in 100 pixels to have a database get nonogram working
 2.) sud / nono pages after building navbar
 3.) puzzle pages: be able to filter by difficulty
-4.) profile: able to see completed and saved puzzles
+4.) profile: able to see completed and saved puzzles - link to profile after login, login/signup failing CRUD 
 5.) db of sudoku puzzles-- models/views
 6.) debug: edit sudoku puzzle after clicked submit, swap 0 to 1 interpretation
 """
