@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import { userLogOut } from "../utilities";
 import "../App.css";
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar({ user, setUser }) {
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar">
@@ -16,7 +18,12 @@ export default function NavBar({ user, setUser }) {
             <Link to={"/sudoku/"}>Sudoku</Link><br></br>
             <Link to={"/nonogram/"}>Nonogram</Link><br></br>
             <Link to={"/profile/"}>Profile</Link>
-            <button onClick={async () => setUser(await userLogOut())}>Log Out</button>
+            <button 
+              onClick={ async () => 
+                {await userLogOut();
+                 setUser(null);
+                 navigate('/'); 
+              }}>Log Out</button>
             <span>{user ? user.email : ""}</span>
           </>
         ) : (
