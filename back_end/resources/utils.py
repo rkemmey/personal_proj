@@ -1,6 +1,32 @@
 from PIL import Image
 import numpy as np
+import requests
+from io import BytesIO
 from nono_app.models import NonogramPuzzle
+
+
+def fetch_white_background(image_url, size=(100, 100)):
+    # get the icon
+    icon_response = requests.get(image_url, timeout=10)
+    icon_response.raise_for_status()
+    icon = Image.open(BytesIO(icon_response.content)).convert("RGBA")
+
+    # resize icon to fit within the target size (90% of target)
+    icon.thumbnail((size[0] * 0.9, size[1] * 0.9))  
+
+    # create white background
+    background = Image.new("RGBA", size, (255, 255, 255, 255))
+
+    # calculate position to center the icon
+    icon_x = (background.width - icon.width) // 2
+    icon_y = (background.height - icon.height) // 2
+
+    # paste the icon onto the background (preserving transparency)
+    background.paste(icon, (icon_x, icon_y), icon)
+
+    # convert to grayscale
+    return background.convert("L")
+
 
 def binary_builder(img):
     # image_path = 'octo.jpg'
@@ -9,8 +35,16 @@ def binary_builder(img):
     image_array = np.array(img_resized)
 
     # apply a threshold to convert pixels to 0 or 1
-    threshold = 130 # black 0, white 222
-    binary = (image_array > threshold).astype(int) # boolean true=1, false=0 = solution array
+    threshold = 130 # black 0, white 255
+    binary = np.ones_like(image_array, dtype=int) # manually set to enter while loop
+    # Increase threshold until we have both 0s and 1s
+    while threshold <= 255:
+        binary = (image_array > threshold).astype(int)
+        unique_vals = np.unique(binary)
+        if len(unique_vals) > 1:  # contains both 0 and 1
+            break
+        threshold += 10
+    #binary = (image_array > threshold).astype(int) # boolean true=1, false=0 = solution array
     return binary
 
 def generate_nonogram(matrix):
@@ -65,7 +99,7 @@ def generate_nonogram(matrix):
     }
 
 def store_view(img_obj, img):
-    binary = binary_builder(img)
+    binary = binary_builder(img) 
     puzzle_data = generate_nonogram(binary)
     obj, created = NonogramPuzzle.objects.get_or_create(
         image=img_obj,
