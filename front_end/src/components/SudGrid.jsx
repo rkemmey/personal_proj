@@ -4,6 +4,7 @@ import "../App.css";
 const SudGrid = ({ puzzle, solution }) => {
     const [board, setBoard] = useState(puzzle);
     const [message, setMessage] = useState(""); // Validation message
+    const [showingSolution, setShowingSolution] = useState(false);
 
     const handleChange = (row, col, value) => {
         const updatedBoard = board.map((r, rowIndex) => // loop through each row -- map(element, index, array)
@@ -25,12 +26,19 @@ const SudGrid = ({ puzzle, solution }) => {
         setMessage(isCorrect ? "Correct!" : "Incorrect. Try again.");
     };
 
+    const showSolution = () => {
+        setBoard(solution);
+        setShowingSolution(true);
+        setMessage("Here's the solution.");
+    };
+    
+
     return (
         <div className="sudoku-container">
             <div className="sudoku-grid">
             {board.map((row, rowIndex) =>
                 row.map((cell, colIndex) => {
-                    const isEditable = cell === 0;
+                    const isEditable = !showingSolution && puzzle[rowIndex][colIndex] === 0;
                     return (
                         <input
                             key={`${rowIndex}-${colIndex}`} //unique key for each cell
@@ -49,6 +57,7 @@ const SudGrid = ({ puzzle, solution }) => {
             )}
             </div>
         <button className="check-button" onClick={checkSolution}>Check Solution</button>
+        <button className="show-button" onClick={showSolution}>Show Solution</button>
             {message && <div className="message">{message}</div>}
         </div>
     );
