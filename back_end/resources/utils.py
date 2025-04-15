@@ -39,7 +39,7 @@ def binary_builder(img):
     binary = np.ones_like(image_array, dtype=int) # manually set to enter while loop
     # Increase threshold until we have both 0s and 1s
     while threshold <= 255:
-        binary = (image_array > threshold).astype(int)
+        binary = (image_array < threshold).astype(int) # changed sign
         unique_vals = np.unique(binary)
         if len(unique_vals) > 1:  # contains both 0 and 1
             break
