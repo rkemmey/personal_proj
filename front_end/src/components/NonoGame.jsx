@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../utilities";
 import NonoGrid from "./NonoGrid";
+import { useParams } from "react-router-dom";
 
 
 function NonoGame() {
     const [solution, setSolution] = useState(null);
     const [rowhint, setRowhint] = useState(null);
     const [colhint, setColhint] = useState(null);
+    const { id } = useParams();
 
     const test_connection = async () => {
-        let response = await api.get("nonogram/puzzle/1/");
+        let response = await api.get(`nonogram/puzzle/${id}/`);
         let data = response.data
         console.log(data);
     

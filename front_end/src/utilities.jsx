@@ -103,13 +103,24 @@ export const getSudokuPuzzles = async () => {
   return null;
 }
 
-export const getASudokuPuzzle = async (id) => {
-  const response = await api.get(`sudoku/puzzle/${id}/`)
+// export const getASudokuPuzzle = async (id) => {
+//   const response = await api.get(`sudoku/puzzle/${id}/`)
+//   if (response.status === 200) {
+//       console.log('getASudokuPuzzle success, ', response.data)
+//       return response.data
+//   }
+
+//   console.log('getASudokuPuzzle error', response)
+//   return null;
+// }
+
+export const getNonogramPuzzles = async () => {
+  const response = await api.get('nonogram/allpuzzles/')
   if (response.status === 200) {
-      console.log('getASudokuPuzzle success, ', response.data)
+      console.log('getNonogramPuzzles success, ', response.data)
       return response.data
   }
 
-  console.log('getASudokuPuzzle error', response)
+  console.log('getNonogramPuzzles error', response)
   return null;
 }

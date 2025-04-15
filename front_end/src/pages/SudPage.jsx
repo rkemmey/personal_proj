@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getSudokuPuzzles } from "../utilities";
 
-export default function sudPage() {
+export default function SudPage() {
   const [sudData, setSudData] = useState(null);
   const navigate = useNavigate();
 
