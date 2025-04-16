@@ -1,22 +1,25 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { userRegistration } from "../utilities";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { setUser } = useOutletContext();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = await userRegistration(email, password);
     if (user) {
         setUser(user)
-    }
-  }
+        navigate('/profile');  //redirect
+    } else {
+      alert('Signup failed.');
+    }  
+  };
 
   return (
     <>

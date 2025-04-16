@@ -175,3 +175,16 @@ export const getSavedPuzzles = async () => {
     return null;  // Return null if an exception is thrown
   }
 };
+
+export const updateDisplayName = async (newName) => {
+  const response = await api.patch('user/update/', {
+    display_name: newName
+  });
+
+  if (response.status === 200) {
+    console.log("updateDisplayName success", response.data);
+    return response.data;
+  }
+  console.log("updateDisplayName failed", response);
+  return null;
+};
