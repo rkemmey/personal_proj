@@ -26,6 +26,7 @@ const ProfilePage = () => {
     };
 
     fetchSavedPuzzles();
+    console.log(savedPuzzles)
   }, []); // empty array runs once after initial render
 
     return ( 
@@ -40,7 +41,7 @@ const ProfilePage = () => {
             ) : (
               savedPuzzles.map(puzzle => (
                 <li key={puzzle.id}>
-                  <a href={`/puzzle/${puzzle.object_id}`}>Continue Puzzle {puzzle.object_id}</a>
+                  <a href={`/${puzzle.content_type === 1 ? 'sudoku' : 'nonogram'}/${puzzle.object_id}`}>Continue Puzzle {puzzle.object_id}</a>
                 </li>
               ))
             )}

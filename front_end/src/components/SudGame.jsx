@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { api } from "../utilities";
+import { api, getSavedPuzzles } from "../utilities";
 import SudGrid from "./SudGrid";
 import { useParams } from "react-router-dom";
 
@@ -11,14 +11,17 @@ function SudGame() {
     const [savedProgress, setSavedProgress] = useState(null); // if any
 
     // check for saved progress
-    const progressList = async () => {await getSavedPuzzles();}
-    const progressForThisPuzzle = progressList?.find(
-        p => p.object_id === parseInt(id)
-    );
-    if (progressForThisPuzzle) {
-        setSavedProgress(progressForThisPuzzle.progress);  // e.g., saved grid state
-        return;
-    }
+    useEffect(() => {
+        const checkProgress = async () => {
+        const progressList = await getSavedPuzzles();
+        const progressForThisPuzzle = progressList?.find(
+            p => p.object_id === parseInt(id)
+        );
+        if (progressForThisPuzzle) {
+            setSavedProgress(progressForThisPuzzle.progress);  // e.g., saved grid state
+        }}; 
+        checkProgress(); 
+    }, [id]);
 
     const test_connection = async () => {
         let response = await api.get(`sudoku/puzzle/${id}/`);

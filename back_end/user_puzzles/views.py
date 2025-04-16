@@ -1,8 +1,12 @@
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from .models import PuzzleProgress
 from .serializers import PuzzleProgressSerializer
+
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 '''
 GET /api/progress/ (list all saved progress for user)
@@ -12,8 +16,9 @@ DELETE /api/progress/<id>/ (delete)
 '''
 
 class PuzzleProgressViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     serializer_class = PuzzleProgressSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return PuzzleProgress.objects.filter(user=self.request.user)

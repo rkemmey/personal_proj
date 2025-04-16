@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import "../App.css";
 import { savePuzzleProgress } from "../utilities";
 import { useParams } from "react-router-dom";
 
 const SudGrid = ({ puzzle, solution, savedProgress }) => {
-    const [board, setBoard] = useState(null);
+    const [board, setBoard] = useState([]);
     const [message, setMessage] = useState(""); // Validation message
     const [showingSolution, setShowingSolution] = useState(false);
     const { id } = useParams();

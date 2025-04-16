@@ -4,6 +4,14 @@ export const api = axios.create({
   baseURL: "http://127.0.0.1:8000/api/",
 });
 
+// On app start, reattach token if it exists
+const token = localStorage.getItem('token');
+  if (token) {
+    api.defaults.headers.common['Authorization'] = `Token ${token}`;
+  }
+
+
+
 export const userRegistration = async (email, password) => {
   // make the post request
   const response = await api.post("user/signup/", {
@@ -54,7 +62,7 @@ export const userLogOut = async () => {
   if (response.status === 204) {
       localStorage.removeItem("token");
       delete api.defaults.headers.common['Authorization'];
-      console.log('userLoTOut() logged out')
+      console.log('userLogOut() logged out')
       return true;
   }
 
@@ -152,6 +160,10 @@ export const getSavedPuzzles = async () => {
     const response = await api.get('progress/');
     
     if (response.status === 200) {
+      // const { user, token } = response.data
+      // localStorage.setItem("token", token);
+      // api.defaults.headers.common['Authorization'] = `Token ${token}`;
+
       console.log('getSavedPuzzles success, ', response.data);
       return response.data;  // Return the list of saved progress
     }
