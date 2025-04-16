@@ -146,3 +146,20 @@ export const savePuzzleProgress = async ({ contentTypeId, objectId, progress, is
     return null;
   }
 };
+
+export const getSavedPuzzles = async () => {
+  try {
+    const response = await api.get('progress/');
+    
+    if (response.status === 200) {
+      console.log('getSavedPuzzles success, ', response.data);
+      return response.data;  // Return the list of saved progress
+    }
+
+    console.log('getSavedPuzzles error', response);
+    return null;  // Return null if there's an error
+  } catch (error) {
+    console.error('getSavedPuzzles error', error.response || error);
+    return null;  // Return null if an exception is thrown
+  }
+};

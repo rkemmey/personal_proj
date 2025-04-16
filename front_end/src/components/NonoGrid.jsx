@@ -3,7 +3,7 @@ import "../App.css";
 import { savePuzzleProgress } from "../utilities";
 import { useParams } from "react-router-dom";
 
-const NonoGrid = ({ rowhint, colhint, solution }) => {
+const NonoGrid = ({ rowhint, colhint, solution, savedProgress}) => {
     const [grid, setGrid] = useState([]);
     const [message, setMessage] = useState("");
     const [showingSolution, setShowingSolution] = useState(false);
@@ -12,9 +12,13 @@ const NonoGrid = ({ rowhint, colhint, solution }) => {
     const { id } = useParams();
 
     useEffect(() => {
+      if (savedProgress) {
+        setGrid(savedProgress);
+      } else if (solution.length > 0) {
         const initialGrid = Array(solution.length).fill().map(() => Array(solution.length).fill(0));
         setGrid(initialGrid);
-      }, [solution.length]);
+      }
+    }, [savedProgress, solution.length]); 
 
     // Toggle cell state (0 = empty, 1 = filled, 2 = marked as X)
     const toggleCell = (row, col) => {

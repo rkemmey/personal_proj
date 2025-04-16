@@ -3,11 +3,20 @@ import "../App.css";
 import { savePuzzleProgress } from "../utilities";
 import { useParams } from "react-router-dom";
 
-const SudGrid = ({ puzzle, solution }) => {
-    const [board, setBoard] = useState(puzzle);
+const SudGrid = ({ puzzle, solution, savedProgress }) => {
+    const [board, setBoard] = useState(null);
     const [message, setMessage] = useState(""); // Validation message
     const [showingSolution, setShowingSolution] = useState(false);
     const { id } = useParams();
+
+    // set board
+    useEffect(() => {
+        if (savedProgress) {
+        setBoard(savedProgress);
+        } else if (puzzle) {
+        setBoard(puzzle); 
+        }
+    }, [savedProgress, puzzle]);
 
     const handleChange = (row, col, value) => {
         const updatedBoard = board.map((r, rowIndex) => // loop through each row -- map(element, index, array)

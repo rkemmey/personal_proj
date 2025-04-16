@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { api } from "../utilities";
+import { api, getSavedPuzzles } from "../utilities";
 import NonoGrid from "./NonoGrid";
 import { useParams } from "react-router-dom";
 
@@ -9,6 +9,17 @@ function NonoGame() {
     const [rowhint, setRowhint] = useState(null);
     const [colhint, setColhint] = useState(null);
     const { id } = useParams();
+    const [savedProgress, setSavedProgress] = useState(null); // if any
+
+    // check for saved progress
+    const progressList = async () => {await getSavedPuzzles();}
+    const progressForThisPuzzle = progressList?.find(
+      p => p.object_id === parseInt(id)
+    );
+    if (progressForThisPuzzle) {
+      setSavedProgress(progressForThisPuzzle.progress);  // e.g., saved grid state
+      return;
+    }
 
     const test_connection = async () => {
         let response = await api.get(`nonogram/puzzle/${id}/`);
@@ -36,7 +47,7 @@ function NonoGame() {
     }, [solution]);
 
     return (
-        solution !== null && <NonoGrid rowhint={rowhint} colhint={colhint} solution={solution}/>
+        solution !== null && <NonoGrid rowhint={rowhint} colhint={colhint} solution={solution} savedProgress={savedProgress}/>
     )
 }
 

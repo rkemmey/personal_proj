@@ -8,6 +8,17 @@ function SudGame() {
     const [puzzle, setPuzzle] = useState(null);
     const [solution, setSolution] = useState(null);
     const { id } = useParams();
+    const [savedProgress, setSavedProgress] = useState(null); // if any
+
+    // check for saved progress
+    const progressList = async () => {await getSavedPuzzles();}
+    const progressForThisPuzzle = progressList?.find(
+        p => p.object_id === parseInt(id)
+    );
+    if (progressForThisPuzzle) {
+        setSavedProgress(progressForThisPuzzle.progress);  // e.g., saved grid state
+        return;
+    }
 
     const test_connection = async () => {
         let response = await api.get(`sudoku/puzzle/${id}/`);
@@ -36,7 +47,7 @@ function SudGame() {
     }, [puzzle]);
 
     return (
-        puzzle !== null && <SudGrid puzzle={puzzle} solution={solution}/>
+        puzzle !== null && <SudGrid puzzle={puzzle} solution={solution} savedProgress={savedProgress}/>
     )
 }
 
