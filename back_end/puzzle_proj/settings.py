@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'user_app',
     'rest_framework.authtoken',
+    'user_puzzles',
 ]
 
 MIDDLEWARE = [

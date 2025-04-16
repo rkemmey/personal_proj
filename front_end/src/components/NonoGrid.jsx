@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
+import { savePuzzleProgress } from "../utilities";
+import { useParams } from "react-router-dom";
 
 const NonoGrid = ({ rowhint, colhint, solution }) => {
     const [grid, setGrid] = useState([]);
@@ -7,6 +9,7 @@ const NonoGrid = ({ rowhint, colhint, solution }) => {
     const [showingSolution, setShowingSolution] = useState(false);
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [paintMode, setPaintMode] = useState(null);
+    const { id } = useParams();
 
     useEffect(() => {
         const initialGrid = Array(solution.length).fill().map(() => Array(solution.length).fill(0));
@@ -84,6 +87,21 @@ const NonoGrid = ({ rowhint, colhint, solution }) => {
       setMessage("Here's the solution.");
     };
 
+    const handleSaveProgress = async () => {
+      const result = await savePuzzleProgress({
+        contentTypeId: 2, //manually set nono ID as 2
+        objectId: id, //puzzleID
+        progress: grid,
+        isCompleted: false,
+      });
+    
+      if (result) {
+        alert('Progress saved!');
+      } else {
+        alert('Failed to save progress.');
+      }
+    };
+
     return (
         <div
           className="grid-wrapper"
@@ -132,6 +150,7 @@ const NonoGrid = ({ rowhint, colhint, solution }) => {
            {/* Buttons and message */}
           <div style={{ marginTop: "10px" }}>
             <button onClick={checkSolution}>Check Solution</button>
+            <button onClick={handleSaveProgress}>Save Progress</button>
             <button onClick={showSolution} style={{ marginLeft: "10px" }}>
               Show Solution
             </button>

@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/nonogram/', include('nono_app.urls')),
     path('api/sudoku/', include('sud_app.urls')),
     path('api/user/', include('user_app.urls')),
+    path('api/progress/', include('user_puzzles.urls')),
 ]

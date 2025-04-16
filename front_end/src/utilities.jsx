@@ -124,3 +124,25 @@ export const getNonogramPuzzles = async () => {
   console.log('getNonogramPuzzles error', response)
   return null;
 }
+
+export const savePuzzleProgress = async ({ contentTypeId, objectId, progress, isCompleted = false }) => {
+  try {
+    const response = await api.post('progress/upsert/', {
+      content_type: contentTypeId,
+      object_id: objectId,
+      progress: progress,
+      is_completed: isCompleted,
+    });
+
+    if (response.status === 201 || response.status === 200) {
+      console.log('savePuzzleProgress success', response.data);
+      return response.data;
+    }
+
+    console.log('savePuzzleProgress unexpected status', response);
+    return null;
+  } catch (error) {
+    console.error('savePuzzleProgress error', error.response || error);
+    return null;
+  }
+};

@@ -1,0 +1,46 @@
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework import viewsets, permissions
+from .models import PuzzleProgress
+from .serializers import PuzzleProgressSerializer
+
+'''
+GET /api/progress/ (list all saved progress for user)
+POST /api/progress/upsert (save/update or create new progress)
+GET /api/progress/<id>/ (retrieve one)
+DELETE /api/progress/<id>/ (delete)
+'''
+
+class PuzzleProgressViewSet(viewsets.ModelViewSet):
+    serializer_class = PuzzleProgressSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return PuzzleProgress.objects.filter(user=self.request.user)
+
+    # def perform_create(self, serializer):
+    #     serializer.save(user=self.request.user)
+
+    @action(detail=False, methods=['post'], url_path='upsert')
+    def upsert(self, request):
+        user = request.user
+        content_type = request.data['content_type']
+        object_id = request.data['object_id']
+        progress = request.data['progress']
+        is_completed = request.data.get('is_completed', False)
+
+        # Update or create the PuzzleProgress object
+        instance, created = PuzzleProgress.objects.update_or_create(
+            user=user,
+            content_type_id=content_type,
+            object_id=object_id,
+            defaults={
+                'progress': progress,
+                'is_completed': is_completed
+            }
+        )
+
+        # Serialize the instance to return
+        serializer = self.get_serializer(instance)
+
+        return Response(serializer.data, status=status.HTTP_200_OK if not created else status.HTTP_201_CREATED)

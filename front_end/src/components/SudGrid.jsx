@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import "../App.css";
+import { savePuzzleProgress } from "../utilities";
+import { useParams } from "react-router-dom";
 
 const SudGrid = ({ puzzle, solution }) => {
     const [board, setBoard] = useState(puzzle);
     const [message, setMessage] = useState(""); // Validation message
     const [showingSolution, setShowingSolution] = useState(false);
+    const { id } = useParams();
 
     const handleChange = (row, col, value) => {
         const updatedBoard = board.map((r, rowIndex) => // loop through each row -- map(element, index, array)
@@ -31,6 +34,21 @@ const SudGrid = ({ puzzle, solution }) => {
         setShowingSolution(true);
         setMessage("Here's the solution.");
     };
+
+    const handleSaveProgress = async () => {
+          const result = await savePuzzleProgress({
+            contentTypeId: 1, //manually set sud ID as 1
+            objectId: id, //puzzleID
+            progress: board, //current state
+            isCompleted: false,
+          });
+        
+          if (result) {
+            alert('Progress saved!');
+          } else {
+            alert('Failed to save progress.');
+          }
+        };
     
 
     return (
@@ -57,6 +75,7 @@ const SudGrid = ({ puzzle, solution }) => {
             )}
             </div>
         <button className="check-button" onClick={checkSolution}>Check Solution</button>
+        <button onClick={handleSaveProgress}>Save Progress</button>
         <button className="show-button" onClick={showSolution}>Show Solution</button>
             {message && <div className="message">{message}</div>}
         </div>
