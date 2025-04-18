@@ -87,13 +87,15 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #f8f8f8;
+    background-color: #9f65c2;
     border-bottom: 1px solid #ddd;
   }
   
   .navbar-left h1 {
     margin: 0;
     font-size: 1.5rem;
+    color: white;
+    padding: 6px;
   }
   
   .navbar-right {
@@ -104,13 +106,31 @@
   
   .navbar-right button {
     background: none;
-    border: 1px solid red;
-    color: red;
-    padding: 6px 12px;
+    border: 1px solid white;
+    color: white;
+    padding: 4px 6px;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.3s ease; 
+  }
+
+  .navbar-right button:hover {
+    background-color: black;
+    border-color: black;    
+    color: white;              
   }
   
   .navbar-right span {
     font-size: 1rem;
+    color: white;
+    padding: 6px;
+  }
+
+  .navbar-right a {
+    color: white;
+    text-decoration: none; /* Optional: removes underline */
+  }
+  
+  .navbar-right a:hover {
+    color: black; /* Optional: Darker purple for hover effect */
   }

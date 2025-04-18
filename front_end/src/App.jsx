@@ -3,6 +3,7 @@ import './App.css'
 import NavBar from './components/NavBar'
 import { Outlet, useLoaderData, useLocation } from 'react-router-dom'
 import { api, getProfile } from './utilities'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   //const loadedUser = useLoaderData();

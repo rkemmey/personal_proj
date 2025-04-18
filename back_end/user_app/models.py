@@ -4,15 +4,6 @@ from django.core import validators as v
 
 
 # Create your models here.
-class User(AbstractUser):
-    email = models.EmailField(unique=True, blank=False)
-    display_name = models.CharField(default='unknown' , max_length=50)
-    
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-    def __str__(self):
-        return self.email
     
 class UserManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
@@ -26,3 +17,16 @@ class UserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+    
+class User(AbstractUser):
+    email = models.EmailField(unique=True, blank=False)
+    display_name = models.CharField(default='unknown' , max_length=50)
+    date_joined = models.DateTimeField(auto_now_add=True)
+
+    objects = UserManager()
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.email

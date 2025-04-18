@@ -47,10 +47,10 @@ const ProfilePage = () => {
 
     return ( 
       <>
-        <h1>Profile</h1>
+        <h3>Profile</h3>
         <p>Hello, {data ? user?.display_name : "Loading..."}</p>
         <div>
-          <h2>Your Saved Puzzles</h2>
+          <h4>Your Saved Puzzles</h4>
           <ul>
             {savedPuzzles.length === 0 ? (
               <li>No saved puzzles to continue.</li>
