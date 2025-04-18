@@ -83,9 +83,11 @@ const SudGrid = ({ puzzle, solution, savedProgress }) => {
                 })
             )}
             </div>
-        <button className="check-button" onClick={checkSolution}>Check Solution</button>
-        <button onClick={handleSaveProgress}>Save Progress</button>
-        <button className="show-button" onClick={showSolution}>Show Solution</button>
+            <div className="button-container">
+                <button className="check-button" onClick={checkSolution}>Check Solution</button>
+                <button className="check-button" onClick={handleSaveProgress}>Save Progress</button>
+                <button className="check-button" onClick={showSolution}>Show Solution</button>
+            </div>
             {message && <div className="message">{message}</div>}
         </div>
     );

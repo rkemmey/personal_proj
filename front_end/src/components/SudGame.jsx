@@ -50,8 +50,13 @@ function SudGame() {
     }, [puzzle]);
 
     return (
-        puzzle !== null && <SudGrid puzzle={puzzle} solution={solution} savedProgress={savedProgress}/>
-    )
+        <>
+        <h3 style={{ textAlign: 'center' }}>{`Puzzle #${id}`}</h3>
+        {puzzle !== null && (
+            <SudGrid puzzle={puzzle} solution={solution} savedProgress={savedProgress} />
+            )}
+        </>
+    );
 }
 
 export default SudGame;
