@@ -50,8 +50,12 @@ function NonoGame() {
     }, [solution]);
 
     return (
-        solution !== null && <NonoGrid rowhint={rowhint} colhint={colhint} solution={solution} savedProgress={savedProgress}/>
-    )
+        <>
+        <h3 style={{ textAlign: 'center' }}>{`Puzzle #${id}`}</h3>
+        {solution !== null && 
+        <NonoGrid rowhint={rowhint} colhint={colhint} solution={solution} savedProgress={savedProgress}/>}
+        </>
+    );
 }
 
 export default NonoGame;

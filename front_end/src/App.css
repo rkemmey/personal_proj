@@ -51,14 +51,15 @@
     font-weight: bold;
     font-size: 1.1rem;
     padding: 6px;
-    display: flex;
-    justify-content: center; /* Centers buttons horizontally */
-    gap: 10px;
+    text-align: center;
 }
 
 .grid-wrapper {
     display: grid;
-    gap: 0;
+    gap: 0px;
+    max-width: fit-content;
+    margin: 0 auto;
+    padding: 5px;
   }
   
   .cell {

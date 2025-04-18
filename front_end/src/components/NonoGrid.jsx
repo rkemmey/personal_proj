@@ -10,6 +10,9 @@ const NonoGrid = ({ rowhint, colhint, solution, savedProgress}) => {
     const [isMouseDown, setIsMouseDown] = useState(false);
     const [paintMode, setPaintMode] = useState(null);
     const { id } = useParams();
+    const maxColHintDepth = Math.max(...colhint.map(h => h.length));
+    const topMargin = maxColHintDepth > 3 ? '5rem' : '2rem';
+
 
     useEffect(() => {
       if (savedProgress) {
@@ -107,17 +110,16 @@ const NonoGrid = ({ rowhint, colhint, solution, savedProgress}) => {
     };
 
     return (
-        <div
-          className="grid-wrapper"
+      <>
+        <div className="grid-wrapper"
           style={{
+            marginTop: topMargin,
             display: "grid",
             gridTemplateColumns: `repeat(${solution.length + 1}, 30px)`,
             gridTemplateRows: `repeat(${solution.length + 1}, 30px)`,
-          }}
-        >
-          {/* Empty top-left corner */}
+          }}>
+        
           <div className="hint-cell" />
-    
           {/* Column hints */}
           {colhint.map((col, colIndex) => (
             <div key={`colhint-${colIndex}`} className="hint-cell vertical">
@@ -129,7 +131,7 @@ const NonoGrid = ({ rowhint, colhint, solution, savedProgress}) => {
     
           {/* Row hints + actual grid */}
           {grid.map((row, rowIndex) => (
-            <>
+            <React.Fragment key={rowIndex}>
               {/* Row hint */}
               <div key={`rowhint-${rowIndex}`} className="hint-cell">
                 {rowhint[rowIndex].join(" ")}
@@ -148,19 +150,21 @@ const NonoGrid = ({ rowhint, colhint, solution, savedProgress}) => {
                 >
                   {cell === 2 ? "X" : ""}
                 </div>
+              
               ))}
-            </>
+            </React.Fragment>
           ))}
-           {/* Buttons and message */}
-          <div style={{ marginTop: "10px" }}>
-            <button onClick={checkSolution}>Check Solution</button>
-            <button onClick={handleSaveProgress}>Save Progress</button>
-            <button onClick={showSolution} style={{ marginLeft: "10px" }}>
-              Show Solution
-            </button>
-            {message && <div className="message">{message}</div>}
           </div>
-        </div>
+           
+
+          <div className="button-container">
+            <button className="check-button" onClick={checkSolution}>Check Solution</button>
+            <button className="check-button" onClick={handleSaveProgress}>Save Progress</button>
+            <button className="check-button" onClick={showSolution}>Show Solution</button>
+            </div>
+            {message && <div className="message">{message}</div>}
+
+            </>
       );
 };
 
