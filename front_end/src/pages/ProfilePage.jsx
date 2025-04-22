@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { getProfile, getSavedPuzzles, updateDisplayName} from "../utilities";
 import { useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
+import "../App.css";
 
-// add in option to set display name or reset password
+// add in option to reset password
 
 const ProfilePage = () => {
   const [data, setData] = useState(null);
@@ -47,25 +49,34 @@ const ProfilePage = () => {
 
     return ( 
       <>
-        <h3>Profile</h3>
-        <p>Hello, {data ? user?.display_name : "Loading..."}</p>
-        <div>
+        <div className="main-page-contents px-3 py-3">
+        <h3 className="display-5 fw-semibold" style={{ color: '#8b4cad' }}>Hello, {data ? user?.display_name : "Loading..."}</h3>
+        <div className="rounded p-3">
           <h4>Your Saved Puzzles</h4>
           <ul>
             {savedPuzzles.length === 0 ? (
-              <li>No saved puzzles to continue.</li>
+              <li>You don't currently have any saved puzzles.</li>
             ) : (
               savedPuzzles.map(puzzle => (
                 <li key={puzzle.id}>
-                  <a href={`/${puzzle.content_type === 1 ? 'sudoku' : 'nonogram'}/${puzzle.object_id}`}>Continue Puzzle {puzzle.object_id}</a>
+                  <a href={`/${puzzle.content_type === 1 ? 'sudoku' : 'nonogram'}/${puzzle.object_id}`} className="custom-link">Continue Puzzle {puzzle.object_id}</a>
                 </li>
               ))
             )}
           </ul>
         </div>
+
+        <div className="rounded p-3">
+          <h5>Learn How to Play</h5>
+          <ul>
+            <li><Link to="/about-sudoku" className="custom-link">Learn How to Play Sudoku</Link></li>
+            <li><Link to="/about-nonogram" className="custom-link">Learn How to Play Nonogram</Link></li>
+          </ul>
+        </div>
+
         { !editing ? (
         <>
-          <button onClick={() => setEditing(true)}>Update Display Name</button>
+          <button className="btn btn-outline-secondary btn-sm" onClick={() => setEditing(true)}>Update Display Name</button>
         </>
       ) : (
         <form onSubmit={handleSubmit}>
@@ -75,10 +86,11 @@ const ProfilePage = () => {
             onChange={(e) => setNewName(e.target.value)}
             autoFocus
           />
-          <button type="submit">Save</button>
-          <button type="button" onClick={() => setEditing(false)}>Cancel</button>
+          <button type="submit" className="btn btn-success">Save</button>
+          <button type="button" className="btn btn-secondary" onClick={() => setEditing(false)}>Cancel</button>
         </form>
       )}
+      </div>
       </>
     );
   };

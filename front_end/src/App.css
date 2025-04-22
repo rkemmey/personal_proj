@@ -145,9 +145,22 @@
 
   .navbar-right a {
     color: white;
-    text-decoration: none; /* Optional: removes underline */
+    text-decoration: none; 
   }
   
   .navbar-right a:hover {
-    color: black; /* Optional: Darker purple for hover effect */
+    color: black; 
+  }
+
+  .banner-container {
+    background-color: #f8f9fa; 
+    padding: 5px 0; 
+  }
+
+  .custom-link {
+    color: #8b4cad; 
+  }
+  
+  .custom-link:hover {
+    color: black; 
   }
