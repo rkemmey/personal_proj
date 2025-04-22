@@ -14,8 +14,8 @@ class Command(BaseCommand):
     help = 'Fetches Image from API and stores pixels, puzzle grid in the database'
 
     def handle(self, *args, **kwargs):
-        num_puzzles = 10 # adjust
-        count =  70 # adjust
+        num_puzzles = 4 # adjust
+        count =  80 # adjust
         for _ in range(num_puzzles):
             auth = OAuth1(env.get("NOUN_API_KEY"), env.get("NOUN_SECRET_KEY"))
             endpoint = f"https://api.thenounproject.com/v2/icon/{count}"

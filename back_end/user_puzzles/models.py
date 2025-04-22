@@ -5,8 +5,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 
 class PuzzleProgress(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-
-    # Generic relationship to either Sudoku or Nonogram
+    # either Sudoku or Nonogram
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
     puzzle = GenericForeignKey('content_type', 'object_id')

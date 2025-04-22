@@ -24,6 +24,7 @@ db of sudoku puzzles-- models/views
 edit sudoku puzzle after clicked submit
 _____________________________
 -- threshold in resources/utils, changed sign, see how it affects puzzle
-- profile: able to see completed and saved puzzles - link to profile after login, login/signup failing CRUD 
+- profile: able to see completed and saved puzzles - link to profile after login
 - puzzle pages: be able to filter by difficulty
+- box on nono to click for X or fill in
 """
