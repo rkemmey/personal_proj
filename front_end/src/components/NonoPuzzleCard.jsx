@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import nonoImg from '../assets/nono.png';
+//import nonoImg from '../assets/nono.png';
 
-const NonoPuzzleCard = ({ id }) => {
+const NonoPuzzleCard = ({ id, imgUrl }) => {
 
     return (
         <div className="col-sm-6 col-md-4 col-lg-3 mb-4">
@@ -11,7 +11,7 @@ const NonoPuzzleCard = ({ id }) => {
             <div className="card h-100" style={{ backgroundColor: '#e0e0e0' }}>
               <div className="d-flex justify-content-center p-3">
                 <img
-                  src={nonoImg}
+                  src={imgUrl}
                   alt={`Puzzle ${id}`}
                   style={{ width: '50%', height: 'auto' }} // shrink image size
                 />

@@ -133,6 +133,17 @@ export const getNonogramPuzzles = async () => {
   return null;
 }
 
+export const getNonogramPixels = async () => {
+  const response = await api.get('nonogram/allpixels/')
+  if (response.status === 200) {
+      console.log('getNonogramPixels success, ', response.data)
+      return response.data
+  }
+
+  console.log('getNonogramPixels error', response)
+  return null;
+}
+
 export const savePuzzleProgress = async ({ contentTypeId, objectId, progress, isCompleted = false }) => {
   try {
     const response = await api.post('progress/upsert/', {
