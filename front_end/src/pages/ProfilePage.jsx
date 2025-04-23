@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProfile, getSavedPuzzles, updateDisplayName} from "../utilities";
+import { getProfile, getSavedPuzzles, updateDisplayName, deletePuzzleProgress} from "../utilities";
 import { useOutletContext } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "../App.css";
@@ -35,6 +35,18 @@ const ProfilePage = () => {
     console.log(savedPuzzles)
   }, []); // empty array runs once after initial render
 
+  const handleDelete = async (contentType, objectId) => {
+    const confirmed = window.confirm("Are you sure you want to delete this saved puzzle? You will lose all saved progress.");
+    if (!confirmed) return;
+  
+    const success = await deletePuzzleProgress(contentType, objectId);
+    if (success) {
+      setSavedPuzzles(prev => prev.filter(p => p.content_type !== contentType || p.object_id !== objectId));
+    } else {
+      alert("Failed to delete the puzzle. Please try again.");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedUser = await updateDisplayName(newName);
@@ -58,8 +70,12 @@ const ProfilePage = () => {
               <li>You don't currently have any saved puzzles.</li>
             ) : (
               savedPuzzles.map(puzzle => (
-                <li key={puzzle.id}>
-                  <a href={`/${puzzle.content_type === 1 ? 'sudoku' : 'nonogram'}/${puzzle.object_id}`} className="custom-link">Continue Puzzle {puzzle.object_id}</a>
+                <li key={puzzle.id} style={{ alignItems: 'center', gap: '10px' }}>
+                  <a href={`/${puzzle.content_type === 1 ? 'sudoku' : 'nonogram'}/${puzzle.object_id}`}
+                    className="custom-link">Continue Puzzle {puzzle.object_id}</a>
+                  <button onClick={() => handleDelete(puzzle.content_type, puzzle.object_id)} className="delete-button">
+                    Click to Delete
+                  </button>
                 </li>
               ))
             )}

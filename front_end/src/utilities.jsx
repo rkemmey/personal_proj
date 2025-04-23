@@ -199,3 +199,25 @@ export const updateDisplayName = async (newName) => {
   console.log("updateDisplayName failed", response);
   return null;
 };
+
+export const deletePuzzleProgress = async (contentType, objectId) => {
+  try {
+    const response = await api.delete('progress/delete/', {
+      data: {
+        content_type: contentType,
+        object_id: objectId
+      }
+    });
+
+    if (response.status === 204) {
+      console.log("deletePuzzleProgress success");
+      return true;
+    }
+
+    console.log("deletePuzzleProgress unexpected response", response);
+    return false;
+  } catch (error) {
+    console.log("deletePuzzleProgress failed", error.response?.data || error.message);
+    return false;
+  }
+};

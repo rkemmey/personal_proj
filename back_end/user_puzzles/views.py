@@ -47,5 +47,21 @@ class PuzzleProgressViewSet(viewsets.ModelViewSet):
 
         # Serialize the instance to return
         serializer = self.get_serializer(instance)
-
         return Response(serializer.data, status=status.HTTP_200_OK if not created else status.HTTP_201_CREATED)
+    
+    #delete based on content_type and id
+    @action(detail=False, methods=['delete'], url_path='delete')
+    def delete_progress(self, request):
+        user = request.user
+        content_type = request.data.get('content_type')
+        object_id = request.data.get('object_id')
+
+        if not content_type or not object_id:
+            return Response({'detail': 'Missing content_type or object_id'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            progress = PuzzleProgress.objects.get(user=user, content_type_id=content_type, object_id=object_id)
+            progress.delete()
+            return Response({'detail': 'Progress deleted'}, status=status.HTTP_204_NO_CONTENT)
+        except PuzzleProgress.DoesNotExist:
+            return Response({'detail': 'Progress not found'}, status=status.HTTP_404_NOT_FOUND)

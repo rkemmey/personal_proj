@@ -164,3 +164,11 @@
   .custom-link:hover {
     color: black; 
   }
+
+  .delete-button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 0.7rem;
+  }
